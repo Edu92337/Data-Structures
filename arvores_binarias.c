@@ -84,3 +84,53 @@ int pertence(ArvoreBin* arv,int x){
     }
     return 0;
 }
+
+No* sucessor(No* no){
+    no = no->dir;
+    while(no->esq)no = no->esq;
+    return no;
+}
+
+No* acha_pai(ArvoreBin* arv, int x){
+    No* aux = arv->raiz;
+    while(aux!=NULL && aux->info != x){
+        pai = aux;
+        if(aux->info < x) aux = aux -> dir;
+        else aux = aux -> esq;
+    }
+    return aux;
+}
+No* remover(No* raiz, int x) {
+
+    if (raiz == nullptr)
+        return nullptr;
+
+    if (x < raiz->info)
+        raiz->esq = remover(raiz->esq, x);
+
+    else if (x > raiz->info)
+        raiz->dir = remover(raiz->dir, x);
+
+    else {
+
+        if (raiz->esq == nullptr) {
+            No* temp = raiz->dir;
+            delete raiz;
+            return temp;
+        }
+
+        if (raiz->dir == nullptr) {
+            No* temp = raiz->esq;
+            delete raiz;
+            return temp;
+        }
+
+        No* suc = sucessor(raiz);
+
+        raiz->info = suc->info;
+
+        raiz->dir = remover(raiz->dir, suc->info);
+    }
+
+    return raiz;
+}
