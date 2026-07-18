@@ -134,3 +134,13 @@ No* remover(No* raiz, int x) {
 
     return raiz;
 }
+//usar como: calcula_altura(arv->raiz,0);
+int calcula_altura(No* no,int altura_atual){
+    if(atual == NULL) return -1;
+    if(!no->esq && !no->dir){
+        return altura_atual;
+    }
+    int h1 = calcula_altura(no->esq,altura_atual+1);
+    int h2 = calcula_altura(no->dir,altura_atual+1);
+    return max(h1,h2);
+}
